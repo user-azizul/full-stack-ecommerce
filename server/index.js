@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to server");
 });
 
-conenctDB
+conenctDB()
   .then(() => {
     app.listen(port, () => {
       console.log("Server is running on port " + port);
