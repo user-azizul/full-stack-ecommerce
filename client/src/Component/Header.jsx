@@ -6,7 +6,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 
 import { FaUserAlt } from "react-icons/fa";
 import { IoMdCart } from "react-icons/io";
-import { headerNavigation } from "../constants";
+import { headerNavigation } from "../constants/constant";
 import { Link, NavLink } from "react-router-dom";
 function Header() {
   return (

@@ -1,3 +1,7 @@
+import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import { TbTruckDelivery } from "react-icons/tb";
+import { BiSupport } from "react-icons/bi";
+import { MdOutlinePayment } from "react-icons/md";
 import {
   // spfOne,
   // spfTwo,
@@ -533,4 +537,28 @@ export const bannerData = [
   }
 ];
 
-// =================== Banner data end here =================
+// =================== services start here =================
+
+export const services = [
+  {
+    title: "free delivery",
+    subtitle: "Free shipping on all order",
+    icon: <TbTruckDelivery />
+  },
+
+  {
+    title: "Returns",
+    subtitle: "Back guarantee under 7 days",
+    icon: <HiOutlineCurrencyDollar />
+  },
+  {
+    title: "Support 24/7",
+    subtitle: "Support online 24 hours a day",
+    icon: <BiSupport />
+  },
+  {
+    title: "Payments",
+    subtitle: "100% payment security",
+    icon: <MdOutlinePayment />
+  }
+];

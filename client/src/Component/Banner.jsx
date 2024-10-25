@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { bannerData } from "../constants";
+import { bannerData } from "../constants/constant";
 import Container from "./Container";
 import Title from "./Tittle";
 
@@ -138,7 +138,7 @@ function Banner() {
                     {banner?.from}
                   </span>
                 </p>
-                <button className="w-24 md:w-44 py-2 md:py-0 md:h-12 bg-black text-white/80 rounded-md text-xs md:text-sm uppercase hover:bg-black font-semibold hoverEffect">
+                <button className="w-24 md:w-44 py-2 md:py-0 md:h-12 bg-black/80  text-white rounded-md text-xs md:text-sm uppercase hover:bg-black font-semibold hoverEffect">
                   Shop now
                 </button>
               </Container>
