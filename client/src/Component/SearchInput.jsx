@@ -16,7 +16,10 @@ function SearchInput() {
       {!search ? (
         <CiSearch className="absolute right-4 top-2.5 text-xl" />
       ) : (
-        <IoCloseOutline className="absolute right-4 top-2.5 text-xl" />
+        <IoCloseOutline
+          onClick={() => setSearch("")}
+          className="absolute right-4 top-2.5 text-xl hover:text-red-600 cursor-pointer duration-300"
+        />
       )}
     </div>
   );
