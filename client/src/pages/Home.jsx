@@ -1,16 +1,17 @@
 import React from "react";
 import Banner from "../Component/Banner";
+import Container from "../Component/Container";
+import Sale from "../Component/Sale";
 import ServicesTag from "../Component/ServicesTag";
-import Header from "../Component/Header";
-import Footer from "../Component/Footer";
 
 function Home() {
   return (
     <div>
-      <Header />
       <Banner />
       <ServicesTag />
-      <Footer />
+      <Container className={"py-5 mg:py-10"}>
+        <Sale />
+      </Container>
     </div>
   );
 }

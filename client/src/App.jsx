@@ -9,10 +9,14 @@ import Orders from "./pages/Orders";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Header from "./Component/Header";
+import Footer from "./Component/Footer";
 
 function App() {
   return (
     <main>
+      <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -23,6 +27,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      <Footer />
     </main>
   );
 }
