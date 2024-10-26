@@ -17,7 +17,7 @@ import {
   // newArrFour,
   bannerImgThree,
   bannerImgTwo,
-  bannerImgOne
+  bannerImgOne,
 } from "../assets/images/index";
 
 // =================== NavBarList Start here ====================
@@ -25,28 +25,28 @@ export const headerNavigation = [
   {
     _id: 1001,
     title: "Home",
-    link: "/"
+    link: "/",
   },
   {
     _id: 1002,
     title: "Shop",
-    link: "/shop"
+    link: "/shop",
   },
   {
     _id: 1003,
     title: "About",
-    link: "/about"
+    link: "/about",
   },
   {
     _id: 1004,
     title: "Contact",
-    link: "contact"
+    link: "contact",
   },
   {
     _id: 1005,
-    title: "Journal",
-    link: "/journal"
-  }
+    title: "Login",
+    link: "/login",
+  },
 ];
 // =================== NavBarList End here ======================
 // =================== Special Offer data Start here ============
@@ -519,22 +519,22 @@ export const bannerData = [
     discount: "discount up to 40%",
     from: 599.99,
     sale: "Flash sale",
-    image: bannerImgOne
+    image: bannerImgOne,
   },
   {
     title: "The best deals on MacBooks",
     discount: "about $250 off",
     from: 2349.99,
     sale: "Big sale",
-    image: bannerImgTwo
+    image: bannerImgTwo,
   },
   {
     title: "Discounts 50% on all headphones",
     discount: "Free shipping over $100",
     from: 499.99,
     sale: "weekend deal",
-    image: bannerImgThree
-  }
+    image: bannerImgThree,
+  },
 ];
 
 // =================== services start here =================
@@ -543,22 +543,22 @@ export const services = [
   {
     title: "free delivery",
     subtitle: "Free shipping on all order",
-    icon: <TbTruckDelivery />
+    icon: <TbTruckDelivery />,
   },
 
   {
     title: "Returns",
     subtitle: "Back guarantee under 7 days",
-    icon: <HiOutlineCurrencyDollar />
+    icon: <HiOutlineCurrencyDollar />,
   },
   {
     title: "Support 24/7",
     subtitle: "Support online 24 hours a day",
-    icon: <BiSupport />
+    icon: <BiSupport />,
   },
   {
     title: "Payments",
     subtitle: "100% payment security",
-    icon: <MdOutlinePayment />
-  }
+    icon: <MdOutlinePayment />,
+  },
 ];

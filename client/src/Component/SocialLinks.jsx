@@ -1,28 +1,22 @@
 import React from "react";
-import {
-  FaEnvelope,
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaYoutube
-} from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 const linkData = [
   {
     icon: <FaGithub />,
-    href: "https://github.com/user-azizul/"
+    href: "https://github.com/user-azizul/",
   },
   {
     icon: <FaYoutube />,
-    href: "https://youtube.com/"
+    href: "https://youtube.com/",
   },
   {
     icon: <FaLinkedin />,
-    href: "https://www.linkedin.com/in/dev-azizul-haque/"
+    href: "https://www.linkedin.com/in/dev-azizul-haque/",
   },
   {
     icon: <FaFacebook />,
-    href: "https://www.facebook.com/profile.php?id=100037711850037"
-  }
+    href: "https://www.facebook.com/profile.php?id=100037711850037",
+  },
 ];
 
 function SocialLinks() {
