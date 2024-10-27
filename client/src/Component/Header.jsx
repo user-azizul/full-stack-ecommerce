@@ -66,7 +66,7 @@ function Header() {
         <Dialog
           open={isOpen}
           onClose={() => setIsOpen(false)}
-          className="relative z-50 w-screen text-white/80 "
+          className="relative z-50 w-screen text-white/80  md:hidden block "
         >
           <div className="fixed inset-0 z-50 bg-black/90 flex w-screen items-center justify-center p-4">
             <DialogPanel className="w-[90%] space-y-4 bg-primary border p-6 border-lightText rounded-md absolute top-10 ">
