@@ -7,12 +7,26 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "*"];
 
 app.get("/", (req, res) => {
   res.send("Welcome to server");
 });
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors()
+  //   {
+  //   origin: (origin, cb) => {
+  //     if (allowedOrigins.includes(origin)) {
+  //       cb(null, true);
+  //     } else {
+  //       cb(new Error("Not allowed by CORS"));
+  //     }
+  //   },
+  //   credentials: true,
+  //   allowedHeaders: ["Authorization", "Content-Type"]
+  // }
+);
 
 // User router
 app.use("/api/user/", userRouter);

@@ -73,9 +73,166 @@ const login = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-const remove = async (req, res) => {};
-const update = async (req, res) => {};
-const adminLogin = async (req, res) => {};
-const getUser = async (req, res) => {};
+const remove = async (req, res) => {
+  try {
+    await UserModel.findByIdAndDelete(req.body._id);
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
-export { signup, login, remove, update, adminLogin, getUser };
+const update = async (req, res) => {
+  const { id, name, email, password, currentPassword } = req.body;
+  try {
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    if (name) user.name = name;
+
+    if (email) {
+      if (!validator.isEmail(email)) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid email address" });
+      } else {
+        user.email = email;
+      }
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+    if (isPasswordCorrect) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      user.password = hashPassword;
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "Current password is incorrect" });
+    }
+
+    await user.save();
+    res.json({ success: true, message: "User updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await UserModel.findOne({ email: email });
+    if (!user) {
+      return res.json({ success: false, message: "user does not exist" });
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "10m"
+    });
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "saarman1688@gmail.com",
+        pass: "xiqg hqme cwkh fvtx"
+      }
+    });
+
+    var mailOptions = {
+      from: "saarman1688@gmail.com",
+      to: email,
+      subject: "Reset your password",
+      text: `http://localhost:5173/reset-password/${token}`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        return res.json({
+          status: false,
+          message: "get error when sending mail"
+        });
+      } else {
+        return res.json({
+          status: true,
+          message: "sent reset link to your email address"
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const _id = decode.id;
+    const hashPassword = bcrypt.hash(password, 10);
+    await UserModel.findByIdAndUpdate({ _id }, { password: hashPassword });
+    return res.json({ success: true, message: "updated the password" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      return res.json({
+        success: false,
+        message: "All field is required"
+      });
+    }
+    const validEmail = validator.isEmail(email);
+    if (!validEmail) {
+      return res.json({
+        success: false,
+        message: "Please provide a valid email"
+      });
+    }
+    if (validEmail === !process.env.ADMIN_EMAIL) {
+      return res.json({ success: false, message: "email is not correct" });
+    } else if (password === !process.env.ADMIN_PASSWORD) {
+      return res.json({ success: false, message: "password is not correct" });
+    }
+
+    const token = await jwt.sign({ email: email }, process.env.JWT_SECRET, {
+      expiresIn: "1h"
+    });
+
+    res.json({ success: true, message: "Logged in successfully", token });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+const getUser = async (req, res) => {
+  try {
+    const totalUsers = await UserModel.countDocuments();
+    const users = await UserModel.find({});
+    return res.json({ success: true, totalUsers, users });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export {
+  signup,
+  login,
+  remove,
+  update,
+  forgetPassword,
+  resetPassword,
+  adminLogin,
+  getUser
+};
