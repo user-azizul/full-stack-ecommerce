@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true, unique },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatar: { type: String },
-    userCart: { type: Object, default: {} },
+    userCart: { type: Object, default: {} }
   },
-  { minimize: flase }
+  { minimize: false }
 );
 
-export const UserMOndel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model("User", userSchema);
