@@ -7,25 +7,35 @@ import Add from "./pages/Add";
 import List from "./pages/List";
 import Orders from "./pages/Orders";
 import Users from "./pages/Users";
+import Login from "./component/Login";
+import { userGlobalContext } from "./context/GlobalContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
+  const { token } = userGlobalContext();
   return (
     <main className="w-full bggray50 min-h-screen">
       <Navbar />
-      <div>
-        <div className="w-[18%] fixed min-h-screen border-r-2">
-          <Sidebar />
+      {!token ? (
+        <Login />
+      ) : (
+        <div>
+          <div className="w-[18%] fixed min-h-screen border-r-2">
+            <Sidebar />
+          </div>
+          <div className="flex-1  px-5 py2 ml-[18%]">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/add" element={<Add />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/users" element={<Users />} />
+            </Routes>
+          </div>
         </div>
-        <div className="flex-1  px-5 py2 ml-[18%]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add" element={<Add />} />
-            <Route path="/list" element={<List />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/users" element={<Users />} />
-          </Routes>
-        </div>
-      </div>
+      )}
+      <ToastContainer />
     </main>
   );
 }

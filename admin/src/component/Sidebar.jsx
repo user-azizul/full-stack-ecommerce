@@ -7,7 +7,7 @@ import { ImUsers } from "react-icons/im";
 
 function Sidebar() {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full sidebar">
       <div className="flex flex-col gap-4 mt-2 pl-6">
         <NavLink
           to="/add"
