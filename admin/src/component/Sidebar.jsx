@@ -7,47 +7,43 @@ import { ImUsers } from "react-icons/im";
 
 function Sidebar() {
   return (
-    <div className="w-full h-full sidebar">
-      <div className="flex flex-col gap-4 mt-2 pl-6">
+    <div className="w-full md:w-64 h-full sidebar bg-white shadow-md">
+      <div className="flex flex-col gap-4 mt-2 pl-2 md:pl-6">
         <NavLink
           to="/add"
-          className="flex items-center justify-center md:justify-normal gap-3 border border-gray-300 border-r-0 px-3 py-2 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
+          className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="inline-flex border-gray-300 items-start justify-center rounded-full text-lg border p-1">
-            {" "}
+          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <IoMdAdd />
           </span>
-          <p>Add items</p>
+          <p className="text-sm md:text-base hidden sm:inline">Add items</p>
         </NavLink>
         <NavLink
           to="/list"
-          className="flex items-center justify-center md:justify-normal gap-3 border border-gray-300 border-r-0 px-3 py-2 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
+          className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="inline-flex border-gray-300 items-start justify-center rounded-full text-lg border p-1">
-            {" "}
+          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <FaList />
           </span>
-          <p>Product List</p>
+          <p className="text-sm md:text-base hidden sm:inline">Product List</p>
         </NavLink>
         <NavLink
           to="/orders"
-          className="flex items-center justify-center md:justify-normal gap-3 border border-gray-300 border-r-0 px-3 py-2 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
+          className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="inline-flex border-gray-300 items-start justify-center rounded-full text-lg border p-1">
-            {" "}
+          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <AiFillProduct />
           </span>
-          <p>Orders</p>
+          <p className="text-sm md:text-base hidden sm:inline">Orders</p>
         </NavLink>
         <NavLink
           to="/users"
-          className="flex items-center justify-center md:justify-normal gap-3 border border-gray-300 border-r-0 px-3 py-2 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
+          className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="inline-flex border-gray-300 items-start justify-center rounded-full text-lg border p-1">
-            {" "}
+          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <ImUsers />
           </span>
-          <p>Users</p>
+          <p className="text-sm md:text-base hidden sm:inline">Users</p>
         </NavLink>
       </div>
     </div>

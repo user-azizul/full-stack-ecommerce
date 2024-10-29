@@ -9,14 +9,14 @@ const signup = async (req, res) => {
     if (!name || !email || !password) {
       return res.json({
         success: false,
-        message: "All field is required"
+        message: "All field is required",
       });
     }
     const validEmail = validator.isEmail(email);
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
     const user = await UserModel.findOne({ email });
@@ -27,7 +27,7 @@ const signup = async (req, res) => {
     const newUser = await UserModel({
       name,
       email,
-      password: hashPassword
+      password: hashPassword,
     });
     await newUser.save();
     res.json({ success: true, message: "User created successfully" });
@@ -42,30 +42,39 @@ const login = async (req, res) => {
     if (!email || !password) {
       return res.json({
         success: false,
-        message: "All field is required"
+        message: "All field is required",
       });
     }
     const validEmail = validator.isEmail(email);
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.json({
         success: false,
-        message: "User not exists, please register"
+        message: "User not exists, please register",
       });
     }
     const validPassword = bcrypt.compare(password, user.password);
     if (!validPassword) {
       return res.json({ success: false, message: "Password is not correct" });
     }
-    const token = await jwt.sign({ userID: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h"
-    });
+    const token = await jwt.sign(
+      {
+        userID: user._id,
+        name: user.name,
+        isAdmin: user.isAdmin,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
 
     res.json({ success: true, message: "Logged in successfully", token });
   } catch (error) {
@@ -133,33 +142,33 @@ const forgetPassword = async (req, res) => {
       return res.json({ success: false, message: "user does not exist" });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "10m"
+      expiresIn: "10m",
     });
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: "saarman1688@gmail.com",
-        pass: "xiqg hqme cwkh fvtx"
-      }
+        pass: "xiqg hqme cwkh fvtx",
+      },
     });
 
     var mailOptions = {
       from: "saarman1688@gmail.com",
       to: email,
       subject: "Reset your password",
-      text: `http://localhost:5173/reset-password/${token}`
+      text: `http://localhost:5173/reset-password/${token}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         return res.json({
           status: false,
-          message: "get error when sending mail"
+          message: "get error when sending mail",
         });
       } else {
         return res.json({
           status: true,
-          message: "sent reset link to your email address"
+          message: "sent reset link to your email address",
         });
       }
     });
@@ -189,25 +198,39 @@ const adminLogin = async (req, res) => {
     if (!email || !password) {
       return res.json({
         success: false,
-        message: "All field is required"
+        message: "All field is required",
       });
     }
     const validEmail = validator.isEmail(email);
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
-    if (validEmail === !process.env.ADMIN_EMAIL) {
-      return res.json({ success: false, message: "email is not correct" });
-    } else if (password === !process.env.ADMIN_PASSWORD) {
-      return res.json({ success: false, message: "password is not correct" });
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User not exists, please register",
+      });
     }
-
-    const token = await jwt.sign({ email: email }, process.env.JWT_SECRET, {
-      expiresIn: "1h"
-    });
+    const validPassword = bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.json({ success: false, message: "Password is not correct" });
+    }
+    const token = await jwt.sign(
+      {
+        userID: user._id,
+        name: user.name,
+        isAdmin: user.isAdmin,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "10h",
+      }
+    );
 
     res.json({ success: true, message: "Logged in successfully", token });
   } catch (error) {
@@ -219,13 +242,17 @@ const getUser = async (req, res) => {
   try {
     const totalUsers = await UserModel.countDocuments();
     const users = await UserModel.find({});
-    return res.json({ success: true, totalUsers, users });
+    const userData = users.map((user) => ({
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    }));
+    return res.json({ success: true, totalUsers, userData });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });
   }
 };
-
 export {
   signup,
   login,
@@ -234,5 +261,5 @@ export {
   forgetPassword,
   resetPassword,
   adminLogin,
-  getUser
+  getUser,
 };

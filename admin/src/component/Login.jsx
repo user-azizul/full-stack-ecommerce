@@ -1,23 +1,34 @@
 import React, { useState } from "react";
 import { userGlobalContext } from "../context/GlobalContext";
 import axios from "axios";
-import { successNotification } from "./../util/showNotification";
+import {
+  errorNotification,
+  successNotification,
+} from "./../util/showNotification";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken, backendUrl } = userGlobalContext();
+  const { setToken, backendUrl, token } = userGlobalContext();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(backendUrl + "/user/admin", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        backendUrl + "/user/admin",
+        {
+          email,
+          password,
+        },
+        {
+          headers: { token },
+        }
+      );
+      console.log(data);
+
       if (data.success) {
         setToken(data.token);
         localStorage.setItem("adminToken", data.token);

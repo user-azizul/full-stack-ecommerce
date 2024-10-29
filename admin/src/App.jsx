@@ -14,17 +14,21 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   const { token } = userGlobalContext();
+
   return (
-    <main className="w-full bggray50 min-h-screen">
+    <main className="w-full min-h-screen bg-gray-50 overflow-hidden">
       <Navbar />
       {!token ? (
         <Login />
       ) : (
-        <div>
-          <div className="w-[18%] fixed min-h-screen border-r-2">
+        <div className="flex">
+          {/* Sidebar */}
+          <div className="w-full md:w-[18%] fixed md:static min-h-screen border-r-2 bg-white">
             <Sidebar />
           </div>
-          <div className="flex-1  px-5 py2 ml-[18%]">
+
+          {/* Main Content */}
+          <div className="flex-1 ml-0 md:ml-[18%] px-4 md:px-5 py-2">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<Add />} />
