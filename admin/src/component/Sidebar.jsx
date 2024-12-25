@@ -7,13 +7,13 @@ import { ImUsers } from "react-icons/im";
 
 function Sidebar() {
   return (
-    <div className="w-full md:w-64 h-full sidebar bg-white shadow-md">
-      <div className="flex flex-col gap-4 mt-2 pl-2 md:pl-6">
+    <div className="w-full  h-full  bg-white shadow-md">
+      <div className="flex flex-col gap-4 mt-2 pl-2">
         <NavLink
           to="/add"
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
+          className="flex items-center gap-3 border justify-center md:justify-normal border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
+          <span className="inline-flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <IoMdAdd />
           </span>
           <p className="text-sm md:text-base hidden sm:inline">Add items</p>
@@ -22,7 +22,7 @@ function Sidebar() {
           to="/list"
           className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
+          <span className="inline-flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <FaList />
           </span>
           <p className="text-sm md:text-base hidden sm:inline">Product List</p>
@@ -31,7 +31,7 @@ function Sidebar() {
           to="/orders"
           className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
+          <span className="inline-flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <AiFillProduct />
           </span>
           <p className="text-sm md:text-base hidden sm:inline">Orders</p>
@@ -40,7 +40,7 @@ function Sidebar() {
           to="/users"
           className="flex items-center gap-3 border border-gray-300 border-r-0 px-2 py-2 md:px-3 bg-gray-100 hover:bg-black/80 hover:text-white duration-300"
         >
-          <span className="flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
+          <span className="inline-flex items-center justify-center rounded-full text-lg border border-gray-300 p-1 md:p-2">
             <ImUsers />
           </span>
           <p className="text-sm md:text-base hidden sm:inline">Users</p>

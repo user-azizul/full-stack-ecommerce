@@ -21,14 +21,14 @@ function App() {
       {!token ? (
         <Login />
       ) : (
-        <div className="flex flex-col md:flex-row">
+        <div className="flex">
           {/* Sidebar */}
-          <div className="w-full md:w-[18%] fixed md:static min-h-screen border-r-2 bg-white md:flex md:flex-col md:top-0 md:left-0 md:border-r-2 md:overflow-auto md:block md:h-auto">
+          <div className="w-[18%] fixed md:static min-h-screen border-r-2 bg-white">
             <Sidebar />
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 ml-0 px-4 md:px-5 py-2 md:ml-[18%]">
+          <div className="flex-1 px-4 md:px-5 py-2">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<Add />} />

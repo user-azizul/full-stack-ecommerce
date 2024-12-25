@@ -10,14 +10,14 @@ const signup = async (req, res) => {
     if (!name || !email || !password) {
       return res.json({
         success: false,
-        message: "All fields are required"
+        message: "All fields are required",
       });
     }
 
     if (name.length < 3) {
       return res.json({
         success: false,
-        message: "Name must be at least 3 characters long"
+        message: "Name must be at least 3 characters long",
       });
     }
 
@@ -25,7 +25,7 @@ const signup = async (req, res) => {
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
 
@@ -38,7 +38,7 @@ const signup = async (req, res) => {
     const newUser = await new UserModel({
       name,
       email,
-      password: hashPassword
+      password: hashPassword,
     });
 
     await newUser.save();
@@ -55,7 +55,7 @@ const login = async (req, res) => {
     if (!email || !password) {
       return res.json({
         success: false,
-        message: "All fields are required"
+        message: "All fields are required",
       });
     }
 
@@ -63,7 +63,7 @@ const login = async (req, res) => {
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
 
@@ -71,7 +71,7 @@ const login = async (req, res) => {
     if (!user) {
       return res.json({
         success: false,
-        message: "User does not exist, please register"
+        message: "User does not exist, please register",
       });
     }
 
@@ -85,11 +85,11 @@ const login = async (req, res) => {
         userID: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
-        email: user.email
+        email: user.email,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 
@@ -101,44 +101,41 @@ const login = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const { email } = req.body;
+  const { _id } = req.body;
+
   try {
-    // Validate that email is provided
-    if (!email) {
+    if (!_id) {
       return res.status(400).json({
         success: false,
-        message: "Email is required"
+        message: "User ID is required",
       });
     }
 
-    // Find the user by email
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ _id });
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found"
+        message: "User not found",
       });
     }
 
-    // Check if the user is an admin
     if (user.isAdmin) {
       return res.status(403).json({
         success: false,
-        message: "Admin users cannot be removed"
+        message: "Admin users cannot be removed",
       });
     }
 
-    // Remove the user if they are not an admin
-    await UserModel.findOneAndDelete({ email });
+    await UserModel.findOneAndDelete({ _id });
     return res.json({
       success: true,
-      message: "User removed successfully"
+      message: "User removed successfully",
     });
   } catch (error) {
     console.error("Error removing user:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to remove user"
+      message: "Failed to remove user",
     });
   }
 };
@@ -195,34 +192,34 @@ const forgetPassword = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "10m"
+      expiresIn: "10m",
     });
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER, // Use environment variable
-        pass: process.env.EMAIL_PASS // Use environment variable
-      }
+        pass: process.env.EMAIL_PASS, // Use environment variable
+      },
     });
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Reset your password",
-      text: `http://localhost:5173/reset-password/${token}`
+      text: `http://localhost:5173/reset-password/${token}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         return res.json({
           status: false,
-          message: "Error when sending mail"
+          message: "Error when sending mail",
         });
       } else {
         return res.json({
           status: true,
-          message: "Reset link sent to your email address"
+          message: "Reset link sent to your email address",
         });
       }
     });
@@ -242,7 +239,7 @@ const resetPassword = async (req, res) => {
     await UserModel.findByIdAndUpdate({ _id }, { password: hashPassword });
     return res.json({
       success: true,
-      message: "Password updated successfully"
+      message: "Password updated successfully",
     });
   } catch (error) {
     console.log(error);
@@ -256,7 +253,7 @@ const adminLogin = async (req, res) => {
     if (!email || !password) {
       return res.json({
         success: false,
-        message: "All fields are required"
+        message: "All fields are required",
       });
     }
 
@@ -264,7 +261,7 @@ const adminLogin = async (req, res) => {
     if (!validEmail) {
       return res.json({
         success: false,
-        message: "Please provide a valid email"
+        message: "Please provide a valid email",
       });
     }
 
@@ -272,7 +269,7 @@ const adminLogin = async (req, res) => {
     if (!user) {
       return res.json({
         success: false,
-        message: "User does not exist, please register"
+        message: "User does not exist, please register",
       });
     }
 
@@ -286,11 +283,11 @@ const adminLogin = async (req, res) => {
         userID: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
-        email: user.email
+        email: user.email,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "10h"
+        expiresIn: "10h",
       }
     );
 
@@ -308,7 +305,8 @@ const getUser = async (req, res) => {
     const userData = users.map((user) => ({
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
+      _id: user._id,
     }));
     return res.json({ success: true, totalUsers, userData });
   } catch (error) {
@@ -325,5 +323,5 @@ export {
   forgetPassword,
   resetPassword,
   adminLogin,
-  getUser
+  getUser,
 };
