@@ -4,7 +4,7 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import {
   successNotification,
-  errorNotification,
+  errorNotification
 } from "./../util/showNotification";
 import { userGlobalContext } from "../context/GlobalContext";
 import EditUserForm from "../component/EditUserForm";
@@ -21,8 +21,8 @@ function Users() {
     try {
       const { data } = await axios.get(`${backendUrl}/user/get-user`, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (data.success) {
@@ -41,7 +41,6 @@ function Users() {
   useEffect(() => {
     fetchList();
   }, []);
-  console.log(userList);
 
   const handleRemoveUser = async (_id) => {
     if (!_id) {
@@ -60,7 +59,7 @@ function Users() {
           `${backendUrl}/user/remove`,
           { _id },
           {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}` }
           }
         );
 
@@ -158,7 +157,7 @@ function Users() {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         close={closeEditForm}
-        userList={userList}
+        userList={fetchList}
         selected={selected}
       />
     </div>

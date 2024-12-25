@@ -5,7 +5,7 @@ import {
   login,
   remove,
   signup,
-  update,
+  update
 } from "../controllers/user.controllers.js";
 import { adminAuth } from "./../middleware/adminAuth.js";
 

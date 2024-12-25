@@ -3,7 +3,7 @@ import { userGlobalContext } from "../context/GlobalContext";
 import axios from "axios";
 import {
   errorNotification,
-  successNotification,
+  successNotification
 } from "./../util/showNotification";
 import { useNavigate } from "react-router-dom";
 
@@ -21,13 +21,12 @@ function Login() {
         backendUrl + "/user/admin",
         {
           email,
-          password,
+          password
         },
         {
-          headers: { token },
+          headers: { token }
         }
       );
-      console.log(data);
 
       if (data.success) {
         setToken(data.token);
@@ -36,6 +35,8 @@ function Login() {
         setTimeout(() => {
           //   navigate("/");
         }, 1000);
+      } else {
+        errorNotification(data.message);
       }
     } catch (error) {
       console.log(error);
