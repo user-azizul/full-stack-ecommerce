@@ -1,8 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./DB/index.js"; // Corrected function name
-import { userRouter } from "./routes/user.routes.js";
+import { userRoute } from "./routes/user.routes.js";
 import cors from "cors";
+import { productRoute } from "./routes/product.route.js";
+import connectCloudinary from "./DB/cloudinary.js";
 
 dotenv.config();
 const app = express();
@@ -29,8 +31,9 @@ app.use(
 );
 
 // User router
-app.use("/api/user/", userRouter);
-
+app.use("/api/user/", userRoute);
+app.use("/api/product/", productRoute);
+connectCloudinary();
 // Connect to database
 connectDB()
   .then(() => {
