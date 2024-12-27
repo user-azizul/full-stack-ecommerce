@@ -11,7 +11,7 @@ export const productRoute = express.Router();
 
 productRoute.get("/single", singleProduct);
 productRoute.get("/list", listProduct);
-productRoute.post("/reomve", removeProduct);
+productRoute.post("/remove", removeProduct);
 productRoute.post(
   "/add",
   upload.fields([
